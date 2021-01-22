@@ -9,26 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Controller
 @RequestMapping("/account")
 @RequiredArgsConstructor
 public class AccountController {
     @Autowired
     private UserService userService;
-
-    @GetMapping("/login")
-    public String login() {
-        return "account/login";
-    }
-
-    @PostMapping("/login")
-    public String login(User user) {
-        System.out.println("로그인");
-        return "redirect:/";
-    }
 
     @PostMapping("/register")
     public String register(User user) {

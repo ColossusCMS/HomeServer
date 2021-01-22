@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.colossus.mapper.AlbumMapper">
+
+    <sql id="albumColumns">
+		  released, title, artist, artist_group
+	</sql>
+
+    <select id="selectAlbumList" parameterType="Album" resultType="Album">
+        SELECT
+        <include refid="albumColumns" />
+        FROM
+        albumtbl
+        WHERE
+        flag = '1'
+        ORDER BY
+        released DESC
+    </select>
+
+    <select id="selectAlbumTotalCount" parameterType="Album" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			albumtbl
+		WHERE
+		    flag = '1'
+	</select>
+
+    <insert id="insertAlbum" parameterType="Album">
+        INSERT INTO
+            albumtbl (<include refid="albumColumns" />, flag)
+        VALUES
+            (
+                #{released},
+                #{title},
+                #{artist},
+                #{artist_group},
+                '1'
+            )
+    </insert>
+
+    <update id="deleteAlbum" parameterType="Album">
+        UPDATE
+            albumtbl
+        SET
+            flag = '0'
+        WHERE
+            released = #{released}
+        AND
+            title = #{title}
+        AND
+            artist = #{artist}
+        AND
+            artist_group = #{artist_group}
+    </update>
+</mapper>

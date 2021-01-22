@@ -12,15 +12,16 @@ import javax.servlet.http.HttpSession;
 public class AdminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        if (ObjectUtils.isEmpty(user)) {
-            response.sendRedirect("/account/login");
-            return false;
-        } else {
-            session.setMaxInactiveInterval(30 * 60);
-            return true;
-        }
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute("user");
+//
+//        if (ObjectUtils.isEmpty(user)) {
+//            response.sendRedirect("/login");
+//            return false;
+//        } else {
+//            session.setMaxInactiveInterval(30 * 60);
+//            return true;
+//        }
+        return true;
     }
 }
