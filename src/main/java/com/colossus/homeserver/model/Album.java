@@ -20,5 +20,5 @@ public class Album {
     private String released;
     private String artist;
     private String artist_group;
-    private Boolean flag;
+    private int flag;
 }

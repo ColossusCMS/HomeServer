@@ -112,3 +112,17 @@
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
+
+.footer {
+  padding: 19px 30px 20px 30px;
+  margin: 0px -20px 0px -20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.footer a {
+  color: rgba(0, 0, 0, 0.7);
+}
+@media (min-width: 1025px) {
+  .footer a:hover {
+    color: #1d84df;
+  }
+}

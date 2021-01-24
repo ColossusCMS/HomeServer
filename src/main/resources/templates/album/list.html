@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: head('앨범 리스트')">
+</head>
+<body>
+    <header th:replace="fragments/common :: header">
+    </header>
+
+    <div>
+        <div class="row">
+            <nav th:replace="fragments/common :: nav('album')">
+            </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" th:fragment="main">
+                <div class="table-responsive clearfix">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>발매일</th>
+                            <th>제목</th>
+                            <th>가수</th>
+                            <th>소속</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${not #lists.isEmpty( albums )}" th:each="row : ${albums}">
+                            <td th:text="${row.released}"></td>
+                            <td th:text="${row.title}"></td>
+                            <td th:text="${row.artist}"></td>
+                            <td th:text="${row.artist_group}"></td>
+                            <td>
+                                <form th:action="@{/album/delete}" th:object="${album2}" method="post">
+                                    <input type="hidden" name="id" th:value="${row.id}">
+                                    <input type="hidden" name="released" th:value="${row.released}">
+                                    <input type="hidden" name="title" th:value="${row.title}">
+                                    <input type="hidden" name="artist" th:value="${row.artist}">
+                                    <input type="hidden" name="artist_group" th:value="${row.artist_group}">
+                                    <button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:unless="${not #lists.isEmpty( albums )}">
+                            <td colspan="5">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-content">
+                    <form class="form-horizontal" th:action="@{/album/register}" th:object="${album}" method="post">
+                        <div class="form-group">
+                            <label for="released" class="col-sm-1 control-label text-center">발매일</label>
+                            <div class="col-sm-11">
+                                <input type="date" id="released" th:field="*{released}" class="form-control" placeholder="yyyy-MM-dd 형식으로 입력" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-1 control-label text-center">제목</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="제목" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artist" class="col-sm-1 control-label text-center">가수</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="artist" th:field="*{artist}" class="form-control" placeholder="가수명" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artist_group" class="col-sm-1 control-label text-center">소속</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="artist_group" th:field="*{artist_group}" class="form-control" placeholder="소속명"></input>
+                            </div>
+                        </div>
+
+                        <div class="btn_wrap text-center">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+    <footer th:replace="fragments/common :: footer">
+
+    </footer>
+
+    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+            integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+            integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+            crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

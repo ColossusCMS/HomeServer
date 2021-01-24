@@ -7,16 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 @Transactional
 public class AlbumCustomRepositoryImpl implements AlbumCustomRepository {
-    @Autowired
-    EntityManager entityManager;
-
-    @Override
-    public List<Album> findByAlbum() {
-        return entityManager.createQuery("select a from Album as a", Album.class).getResultList();
-    }
 }
