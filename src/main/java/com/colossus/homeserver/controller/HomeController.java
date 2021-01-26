@@ -1,14 +1,47 @@
 package com.colossus.homeserver.controller;
 
+import com.colossus.homeserver.exception.NotFoundException;
+import com.colossus.homeserver.model.Post;
+import com.colossus.homeserver.service.PostService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+    private PostService postService;
+
     @GetMapping("/home")
     public String home() {
-        return "/home";
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit")
+    public String newPost(@PathVariable Long id, Model model) {
+        Post post = postService.findById(id);
+        if (post == null) {
+            throw new NotFoundException(id + "not found");
+        }
+        Post newPost = new Post();
+        newPost.setContent(post.getContent());
+        newPost.setCode(post.getCode());
+        model.addAttribute("editPost", newPost);
+        return "home/edit";
+    }
+
+    @PostMapping("/edit")
+    public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid Post createPost, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/home/edit";
+        }
+        postService.updatePost(id, new Post(
+                createPost.getContent(),
+                createPost.getCode()
+        ));
+        return "redirect:/";
     }
 }

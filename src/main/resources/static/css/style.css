@@ -997,8 +997,8 @@ Version 1.0
 */
 .footer {
     padding: 19px 30px 20px 30px;
-    margin: 0px -20px 0px -20px;
-    color: rgba(0, 0, 0, 0.7);
+    margin: 20px -20px 0px -20px;
+    color: rgba(179, 179, 179, 0.7);
 }
 .footer a {
     color: rgba(0, 0, 0, 0.7);
