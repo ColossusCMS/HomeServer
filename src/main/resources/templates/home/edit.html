@@ -2,20 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/common :: head('홈')">
-    <script th:src="@{/markdown/js/markdown-it.js}"></script>
-    <script th:src="@{/markdown/js/markdown-it-footnote.js}"></script>
-    <script th:src="@{/markdown/js/highlight.pack.js}"></script>
-    <script th:src="@{/codemirror/lib/codemirror.js}"></script>
-    <script th:src="@{/codemirror/overlay.js}"></script>
-    <script th:src="@{/codemirror/markdown/markdown.js}"></script>
-    <script th:src="@{/codemirror/gfm/gfm.js}"></script>
-    <script th:src="@{/markdown/js/rawinflate.js}"></script>
-    <script th:src="@{/markdown/js/rawdeflate.js}"></script>
-    <link rel="stylesheet" th:href="@{/codemirror/css/base16-light.css}"/>
-    <link rel="stylesheet" th:href="@{/codemirror/lib/codemirror.css}"/>
-    <link rel="stylesheet" th:href="@{/markdown/css/github-gist.css}" />
-    <link rel="stylesheet" th:href="@{/css/post.css}" />
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
     <header th:replace="fragments/common :: header">
@@ -34,56 +20,28 @@
                         <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg">
                     </div>
                 </div>
-                <div class="col-md-8 mx-4">
+                <div class="col-md-11 mx-4">
                     <h2 class="mb-4 pb-3 border-bottom">
                         <b>최문석</b> Mun-Seok CHOI
                     </h2>
 
-                    <article class="blog-post">
-                        <form class="form-horizontal well bs-component col-lg-10 col-lg-offset-1" th:action="@{/posts}"
-                              th:object="${postDto}" method="post" th:id="post">
-                            <fieldset>
-                                <div class="form-group" th:classappend="(${#fields.hasErrors('title')}? ' has-error')">
-                                    <label for="title" class="col-lg-2 control-label">Title</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="title" name="title" th:field="*{title}"
-                                               placeholder="Title"/>
-                                        <span class="help-block" th:if="${#fields.hasErrors('title')}"
-                                              th:errors="*{title}">Incorrect title</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" th:classappend="(${#fields.hasErrors('categoryId')}? ' has-error')">
-                                    <label class="col-lg-2 control-label">categories</label>
-                                    <div class="btn-group" data-toggle="buttons" th:each="category : ${categories}">
-                                        <label class="btn btn-primary active">
-                                            <input th:onclick="'changeCategory(\'' + ${category.name} + '\')'" name="categoryId" type="radio" th:text="${category.name}" th:value="${category.id}" />
-                                        </label>
-                                    </div>
-                                    <span class="help-block" style="text-align: center;" th:if="${#fields.hasErrors('categoryId')}"
-                                          th:errors="*{categoryId}">Incorrect title</span>
-
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">category</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="categoryName" disabled="disabled"/>
-                                    </div>
-                                </div>
-
-                                <div id="in">
-                                    <input type="hidden" id="content" name="content" th:field="*{content}"/>
-                                    <input type="hidden" id="code" th:field="*{code}" />
-                                </div>
-                                <div id="out" >
-                                </div>
-                                <div id="messageContent">
-                                    <label for="content" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
-                                </div>
-                                <div id="menu">
-                                    <input class="btn btn-primary" type="button" value="Submit" onclick="saveAsHtml()"/>
-                                </div>
-                            </fieldset>
+                    <article>
+                        <form th:action="@{/post}" th:object="${editPost}" method="post" th:id="post">
+                            <div id="in" class="col-md-6 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <input type="hidden" id="content" name="content" th:field="*{content}"/>
+                                <input type="hidden" id="code" th:field="*{code}" />
+                            </div>
+                            <div id="out" class="col-md-6 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            </div>
+                            <div id="messageContent">
+                                <label for="content" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
+                            </div>
+<!--                            <div id="menu">-->
+<!--                                <input class="btn btn-primary" type="button" value="Submit" onclick="saveAsHtml()"/>-->
+<!--                            </div>-->
+                            <div class="btn_wrap text-center">
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" onclick="saveAsHtml()">저장하기</button>
+                            </div>
                         </form>
                     </article><!-- /.blog-post -->
                 </div>

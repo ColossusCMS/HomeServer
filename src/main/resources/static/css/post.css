@@ -7,13 +7,12 @@ body {
 }
 
 #in {
-    position: fixed;
-    top: 230px;
-    left: 125px;
-    bottom: 15%;
-    width: 40%;
-    height: auto;
-    overflow: auto;
+    /*position: fixed;*/
+    /*top: 230px;*/
+    /*left: 125px;*/
+    /*bottom: 15%;*/
+    height: 700px;
+    overflow: hidden;
     font-size: 12px;
     /*box-shadow: -10px 2px 6px 10px rgba(0, 0, 0, 0.4);*/
 }
@@ -34,28 +33,30 @@ body {
 }
 
 #out {
-    position: fixed;
-    top: 230px;
-    right: 0;
-    left: 50%;
-    bottom: 15%;
-    width: 40%;
-    overflow: auto;
-    padding: 10px;
-    padding-left: 20px;
+    /*position: fixed;*/
+    /*top: 230px;*/
+    /*right: 0;*/
+    /*left: 50%;*/
+    /*bottom: 15%;*/
+    /*width: 40%;*/
+    /*overflow: auto;*/
+    /*padding: 10px;*/
+    /*padding-left: 20px;*/
+    min-height: 500px;
     color: #444;
-    font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+    overflow: auto;
+    /*font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;*/
     font-size: 16px;
-    line-height: 1.5em
+    /*line-height: 1.5em*/
 }
 
 #menu {
     /*display: none;*/
-    position: fixed;
+    /*position: fixed;*/
     /*background-color: #111;*/
     border-radius: 5px;
     top: 90%;
-    left: 90%;
+    left: 85%;
     width: 220px;
     /*height: 150px;*/
     /*margin-top: -75px;*/

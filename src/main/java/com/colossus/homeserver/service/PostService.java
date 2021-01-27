@@ -3,11 +3,15 @@ package com.colossus.homeserver.service;
 import com.colossus.homeserver.exception.NotFoundException;
 import com.colossus.homeserver.model.Post;
 import com.colossus.homeserver.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class PostService {
+    @Autowired
     private PostRepository postRepository;
 
     public Post createPost(Post post) {
@@ -15,9 +19,10 @@ public class PostService {
     }
 
     public Post updatePost(Long id, Post post) {
-        Post oldPost = postRepository.findById();
+        List<Post> posts = postRepository.findAll();
+        Post oldPost = posts.get(0);
         if (oldPost == null) {
-            throw new NotFoundException(id + "not found");
+            throw new NotFoundException(oldPost.getId() + " is not found");
         }
 
         oldPost.setContent(post.getContent());
@@ -25,11 +30,11 @@ public class PostService {
         return oldPost;
     }
 
-    @Transactional(readOnly = true)
-    public Post findById(Long id) {
-        Post post = postRepository.findById();
-        if (post == null) {
-            throw new NotFoundException(id + "not found");
+    public Post findById() {
+        List<Post> posts = postRepository.findAll();
+        Post post = posts.get(0);
+       if (post == null) {
+            throw new NotFoundException(post.getId() + " is not found");
         }
         return post;
     }

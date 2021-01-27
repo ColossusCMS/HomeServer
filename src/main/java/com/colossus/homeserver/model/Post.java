@@ -14,6 +14,7 @@ public class Post {
     private Long id;
     private String content;
     private String code;
+    private int status;
 
     public Post() {}
 
@@ -21,6 +22,4 @@ public class Post {
         this.content = content;
         this.code = code;
     }
-
-
 }

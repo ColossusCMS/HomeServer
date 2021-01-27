@@ -3,6 +3,7 @@ package com.colossus.homeserver.controller;
 import com.colossus.homeserver.exception.NotFoundException;
 import com.colossus.homeserver.model.Post;
 import com.colossus.homeserver.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+    @Autowired
     private PostService postService;
 
     @GetMapping("/home")
@@ -21,10 +23,10 @@ public class HomeController {
     }
 
     @GetMapping("/edit")
-    public String newPost(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+    public String newPost(Model model) {
+        Post post = postService.findById();
         if (post == null) {
-            throw new NotFoundException(id + "not found");
+            throw new NotFoundException(post.getId() + " is not found");
         }
         Post newPost = new Post();
         newPost.setContent(post.getContent());
@@ -33,15 +35,15 @@ public class HomeController {
         return "home/edit";
     }
 
-    @PostMapping("/edit")
-    public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid Post createPost, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/home/edit";
-        }
-        postService.updatePost(id, new Post(
-                createPost.getContent(),
-                createPost.getCode()
-        ));
-        return "redirect:/";
-    }
+//    @PostMapping("/edit")
+//    public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid Post createPost, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "/home/edit";
+//        }
+//        postService.updatePost(id, new Post(
+//                createPost.getContent(),
+//                createPost.getCode()
+//        ));
+//        return "redirect:/";
+//    }
 }

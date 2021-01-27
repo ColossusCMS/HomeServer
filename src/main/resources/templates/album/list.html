@@ -26,7 +26,7 @@
                         <tbody>
                         <tr th:if="${not #lists.isEmpty( albums )}" th:each="row : ${albums}">
                             <td th:text="${row.released}"></td>
-                            <td th:text="${row.title}"></td>
+                            <td><a class="btn btn btn-link btn-lg btn-block" th:text="${row.title}" th:onclick="pageLink( [[${row.title}]] )"></a></td>
                             <td th:text="${row.artist}"></td>
                             <td th:text="${row.artist_group}"></td>
                             <td>
@@ -97,5 +97,10 @@
             integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
             crossorigin="anonymous"></script>
     <script src="dashboard.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        var pageLink = function(title) {
+            location.href = "https://nyaa.si/?c=2_0&q=" + title;
+        }
+    </script>
 </body>
 </html>
