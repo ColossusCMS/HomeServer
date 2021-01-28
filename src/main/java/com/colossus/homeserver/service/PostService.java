@@ -18,7 +18,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post updatePost(Long id, Post post) {
+    public Post updatePost(Post post) {
         List<Post> posts = postRepository.findAll();
         Post oldPost = posts.get(0);
         if (oldPost == null) {
@@ -27,7 +27,7 @@ public class PostService {
 
         oldPost.setContent(post.getContent());
         oldPost.setCode(post.getCode());
-        return oldPost;
+        return postRepository.save(oldPost);
     }
 
     public Post findById() {

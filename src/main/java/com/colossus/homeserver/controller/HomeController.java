@@ -35,15 +35,15 @@ public class HomeController {
         return "home/edit";
     }
 
-//    @PostMapping("/edit")
-//    public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid Post createPost, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "/home/edit";
-//        }
-//        postService.updatePost(id, new Post(
-//                createPost.getContent(),
-//                createPost.getCode()
-//        ));
-//        return "redirect:/";
-//    }
+    @PostMapping("/edit")
+    public String modifyPost(@ModelAttribute("editPost") @Valid Post createPost, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/home/edit";
+        }
+        postService.updatePost(new Post(
+                createPost.getContent(),
+                createPost.getCode()
+        ));
+        return "redirect:/";
+    }
 }
