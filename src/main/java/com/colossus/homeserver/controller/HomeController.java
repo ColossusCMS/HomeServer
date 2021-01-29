@@ -17,9 +17,11 @@ public class HomeController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/home")
-    public String home() {
-        return "redirect:/";
+    @GetMapping
+    public String home(Model model) {
+        System.out.println("체크");
+        
+        return "/home";
     }
 
     @GetMapping("/edit")
@@ -32,7 +34,7 @@ public class HomeController {
         newPost.setContent(post.getContent());
         newPost.setCode(post.getCode());
         model.addAttribute("editPost", newPost);
-        return "home/edit";
+        return "/home/edit";
     }
 
     @PostMapping("/edit")
